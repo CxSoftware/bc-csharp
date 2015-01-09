@@ -4,6 +4,7 @@
 *.swp
 *.user
 *.vsp
+*.userprefs
 
 Backup/
 bin/
