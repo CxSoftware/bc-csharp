@@ -12,10 +12,17 @@ namespace Org.BouncyCastle.Security
         : Random
     {
         private static long counter = Times.NanoTime();
-
+#if NETCF_2_0
+        private static object nextCounterValueLock = new object ();
+#endif
         private static long NextCounterValue()
         {
+#if NETCF_2_0
+            lock (nextCounterValueLock)
+                 return ++counter;
+#else
             return Interlocked.Increment(ref counter);
+#endif
         }
 
 #if NETCF_1_0
